@@ -1,0 +1,121 @@
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+    <div class="container topnav">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand topnav" [routerLink]="['/']">Easy Inside</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a [routerLink]="['/spaces']">Search</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/document']">Document</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/contact']">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<div id="wrapper" class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <h2 class="page-header">Search</h2>
+    </div>
+  </div>
+  <div class="row search-form">
+    <div class="col-lg-12">
+      <div class="input-group">
+        <input type="text" class="form-control" id="inputSearch" [(ngModel)]="keyword" (keypress)="onChangeKeyword($event)" placeholder="Search for...">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button" (click)="clickSearchButton($event)"><i class="fa fa-search" aria-hidden="true"></i></button>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <ul class="nav nav-tabs">
+        <li role="presentation" [ngClass]="{'active':tabMode==='space','nav-item':true}"><a class="nav-link" (click)="setTab($event, 'space')" href="#">Spaces</a></li>
+        <li role="presentation" [ngClass]="{'active':tabMode==='map','nav-item':true}"><a class="nav-link" (click)="setTab($event, 'map')" href="#">Maps</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="row search-box">
+    <div class="col-lg-12">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="form-group">
+          <div class="btn-group" dropdown>
+            <button type="button" class="btn btn-default btn-sm dropdown-toggle" dropdownToggle>
+              Show {{limit}} entries per page <span class="caret"></span>
+            </button>
+            <ul *dropdownMenu class="dropdown-menu" role="menu">
+              <li role="menuitem"><a class="dropdown-item" href="#" (click)="onClickLimit($event, '1')">Show 1 entries per page</a></li>
+              <li role="menuitem"><a class="dropdown-item" href="#" (click)="onClickLimit($event, '5')">Show 5 entries per page</a></li>
+              <li role="menuitem"><a class="dropdown-item" href="#" (click)="onClickLimit($event, '10')">Show 10 entries per page</a></li>
+              <li role="menuitem"><a class="dropdown-item" href="#" (click)="onClickLimit($event, '50')">Show 50 entries per page</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+          <div class="sr-only" aria-hidden="false">Showing {{pageFrom}} to {{pageTo}} of {{total}} entries</div>
+          <pagination class="pagination-sm pagination-slim" [(ngModel)]="page" [totalItems]="total" [itemsPerPage]="limit" [maxSize]="5" [boundaryLinks]="true" [directionLinks]="false" [rotate]="false" (numPages)="numPages=$event" (pageChanged)="pageChanged($event)"></pagination>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <dl class="result map-result" *ngIf="tabMode==='map'">
+        <ng-template ngFor let-map [ngForOf]="maps" let-index="index" let-even="even" let-odd="odd" let-last="last">
+          <dt [ngClass]="{odd: odd, even: even, last: last}">
+            <a [routerLink]="['/map', map._id]">{{map.name}}</a>
+            <i [ngClass]="{'fa':true, 'fa-lock':map.security!=='public', 'fa-unlock':map.security==='public'}" aria-hidden="true" title="{{(map.security==='public')?'This map is opened for everybody':'This map is protected by private rule'}}"><span class="sr-only">{{(map.security==='public')?'This map is opened for everybody':'This map is protected by private rule'}}</span></i>
+            <i class="fa fa-wifi" *ngIf="map.allowRobot===true" aria-hidden="true" title="You can play with robots in ths map"><span class="sr-only">You can play with robots in ths map</span></i>
+            <i>in {{map._space.name}}</i>
+          </dt>
+          <dd [ngClass]="{odd: odd, even: even, last: last}">
+            {{map._space.description}}
+          </dd>
+        </ng-template>
+      </dl>
+      <dl class="result space-result" *ngIf="tabMode==='space'">
+        <ng-template ngFor let-space [ngForOf]="spaces" let-index="index" let-even="even" let-odd="odd" let-last="last">
+          <dt [ngClass]="{odd: odd, even: even, last: last}">
+            {{space.name}}
+          </dt>
+          <dd [ngClass]="{odd: odd, even: even, last: last}">
+            {{space.description}}
+            <ul>
+              <ng-template ngFor let-m [ngForOf]="space.maps" let-index="index" let-even="even" let-odd="odd" let-last="last">
+                <li *ngIf="m.security!='private'">
+                  <a [routerLink]="['/map', m._id]"><i class="fa fa-map" aria-hidden="true"></i> {{m.name}}</a>
+                  <i [ngClass]="{'fa':true, 'fa-lock':m.security!='public', 'fa-unlock':m.security=='public'}" aria-hidden="true" title="{{(m.security=='public')?'This map is opened for everybody':'This map is protected by private rule'}}"><span class="sr-only">{{(m.security=='public')?'This map is opened for everybody':'This map is protected by private rule'}}</span></i>
+                  <i class="fa fa-wifi" *ngIf="m.allowRobot===true" title="You can play with robots in ths map"><span class="sr-only">You can play with robots in ths map</span></i>
+                </li>
+              </ng-template>
+            </ul>
+          </dd>
+        </ng-template>
+      </dl>
+    </div>
+  </div>
+  <div class="row justify-content-md-center">
+    <div class="col-lg-6 col-md-6">
+      
+    </div>
+  </div>
+</div>

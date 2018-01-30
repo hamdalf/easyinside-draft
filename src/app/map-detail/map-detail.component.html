@@ -1,0 +1,195 @@
+<div id="wrapper">
+
+    <app-nav-private [status]="status"></app-nav-private>
+
+    <div style="position:fixed;right:10px;top:10px;z-index:1001;">
+        <alert type="success" dismissible="true" *ngIf="editComplete">
+            <strong>Map Updated!</strong> You successfully change map data.
+        </alert>
+        <alert type="danger" dismissible="true" *ngIf="alert.visible" (onClose)="onCloseAlert($event)">
+            <strong>Cannot modify map data!</strong> {{alert.message}}
+        </alert>
+        <alert type="warning" *ngIf="deleteProcess">
+            <strong>Warning!</strong> This map will be deleted permanently. Are you sure?
+            <button type="button" class="btn btn-primary btn-xs" style="margin-left:20px;" (click)="deleteMap($event)">Yes</button>
+            <button type="button" class="btn btn-danger btn-sm" (click)="deleteProcess=false">No</button>
+        </alert>
+    </div>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Map Details</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Map Info
+                        <a class="btn btn-default btn-sm float-btn margin-top-btn" [routerLink]="['/maker/spacedetails', map?._space]">Back To List</a>
+                        <a class="btn btn-primary btn-sm float-btn margin-top-btn margin-right-btn" [routerLink]="['/maker/info-edit', map?._id]"><i class="fa fa-info-circle" aria-hidden="true"></i> Info Editor</a>
+                        <a class="btn btn-primary btn-sm float-btn margin-top-btn margin-right-btn" [routerLink]="['/maker/desk-edit', map?._id]"><i class="fa fa-street-view" aria-hidden="true"></i> Desk Editor</a>
+                        <a class="btn btn-primary btn-sm float-btn margin-top-btn margin-right-btn" [routerLink]="['/maker/map-edit', map?._id]"><i class="fa fa-map" aria-hidden="true"></i> Map Editor</a>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <form role="form" [formGroup]="mapForm" (ngSubmit)="saveMap(mapForm.value)">
+                                    <div class="form-group">
+                                        <label>Map ID</label>
+                                        <p class="form-control-static">{{map?._id}}</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Created Date</label>
+                                        <p class="form-control-static">{{map?.created | convertTimezone:[timeZone, timeFormat]}} (CET)</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Last Modified Date</label>
+                                        <p class="form-control-static">{{map?.modified | convertTimezone:[timeZone, timeFormat]}} (CET)</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Map Data Size</label>
+                                        <p class="form-control-static">{{map?.fileSize}}</p>
+                                    </div>
+                                    <div class="form-group" [ngClass]="{'has-error':!mapForm.controls['name'].valid && mapForm.controls['name'].touched}">
+                                        <label>Name</label>
+                                        <input class="form-control" placeholder="Enter map name" [formControl]="mapForm.controls['name']" [ngModel]="map?.name">
+                                        <div *ngIf="mapForm.controls['name'].hasError('required') && mapForm.controls['name'].touched" class="alert alert-danger">
+                                            You must include a map name.
+                                        </div>
+                                        <div *ngIf="mapForm.controls['name'].hasError('pattern') && mapForm.controls['name'].touched" class="alert alert-danger">
+                                            Map name allows only a~z, A~Z, 0~9 and space.
+                                        </div>
+                                    </div>
+                                    <label>Width</label>
+                                    <div class="form-group input-group" [ngClass]="{'has-error':!mapForm.controls['width'].valid && mapForm.controls['width'].touched}">
+                                        <input class="form-control" placeholder="Enter map width" [formControl]="mapForm.controls['width']" [ngModel]="map?.width">
+                                        <span class="input-group-addon">&#13213;</span>
+                                    </div>
+                                    <div *ngIf="mapForm.controls['width'].hasError('required') && mapForm.controls['width'].touched" class="alert alert-danger">
+                                        You must include map width.
+                                    </div>
+                                    <div *ngIf="mapForm.controls['width'].hasError('pattern') && mapForm.controls['width'].touched" class="alert alert-danger">
+                                        Map width allows only number.
+                                    </div>
+                                    <div *ngIf="mapForm.controls['width'].hasError('minValue') && mapForm.controls['width'].touched" class="alert alert-danger">
+                                        Map width must be larger than 0.
+                                    </div>
+                                    <label>Height</label>
+                                    <div class="form-group input-group" [ngClass]="{'has-error':!mapForm.controls['height'].valid && mapForm.controls['height'].touched}">
+                                        <input class="form-control" placeholder="Enter map height" [formControl]="mapForm.controls['height']" [ngModel]="map?.height">
+                                        <span class="input-group-addon">&#13213;</span>
+                                    </div>
+                                    <div *ngIf="mapForm.controls['height'].hasError('required') && mapForm.controls['height'].touched" class="alert alert-danger">
+                                        You must include map height.
+                                    </div>
+                                    <div *ngIf="mapForm.controls['height'].hasError('pattern') && mapForm.controls['height'].touched" class="alert alert-danger">
+                                        Map height allows only number.
+                                    </div>
+                                    <div *ngIf="mapForm.controls['height'].hasError('minValue') && mapForm.controls['height'].touched" class="alert alert-danger">
+                                        Map height must be larger than 0.
+                                    </div>
+                                    <label>Voxel Size</label>
+                                    <div class="form-group input-group" [ngClass]="{'has-error':!mapForm.controls['voxelSize'].valid && mapForm.controls['voxelSize'].touched}">
+                                        <input class="form-control" placeholder="Enter voxel name" [formControl]="mapForm.controls['voxelSize']" [ngModel]="map?.voxelSize">
+                                        <span class="input-group-addon">&#13213;</span>
+                                    </div>
+                                    <div *ngIf="mapForm.controls['voxelSize'].hasError('required') && mapForm.controls['voxelSize'].touched" class="alert alert-danger">
+                                        You must include voxel size.
+                                    </div>
+                                    <div *ngIf="mapForm.controls['voxelSize'].hasError('pattern') && mapForm.controls['voxelSize'].touched" class="alert alert-danger">
+                                        Voxel size allows only number.
+                                    </div>
+                                    <div *ngIf="mapForm.controls['voxelSize'].hasError('minValue') && mapForm.controls['voxelSize'].touched" class="alert alert-danger">
+                                        Voxel size must be larger than 0.
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Allow Search</label>
+                                        <div class="form-control-static">
+                                            <div class="btn-group" dropdown>
+                                                <button id="allow-button" type="button" class="btn btn-primary dropdown-toggle" style="text-transform:capitalize" dropdownToggle>
+                                                    {{searchable}} <span class="caret"></span>
+                                                </button>
+                                                <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="single-button">
+                                                    <li role="menuitem"><a class="dropdown-item" style="text-transform:capitalize" href="#" (click)="changeMapStatus($event, 'searchable', true)">Yes</a></li>
+                                                    <li role="menuitem"><a class="dropdown-item" style="text-transform:capitalize" href="#" (click)="changeMapStatus($event, 'searchable', false)">No</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Allow Robot</label>
+                                        <div class="form-control-static">
+                                            <div class="btn-group" dropdown>
+                                                <button id="allow-button" type="button" class="btn btn-primary dropdown-toggle" style="text-transform:capitalize" dropdownToggle>
+                                                    {{allowrobot}} <span class="caret"></span>
+                                                </button>
+                                                <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="single-button">
+                                                    <li role="menuitem"><a class="dropdown-item" style="text-transform:capitalize" href="#" (click)="changeMapStatus($event, 'allowRobot', true)">Yes</a></li>
+                                                    <li role="menuitem"><a class="dropdown-item" style="text-transform:capitalize" href="#" (click)="changeMapStatus($event, 'allowRobot', false)">No</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Use Path Object for Navigation</label>
+                                        <div class="form-control-static">
+                                            <div class="btn-group" dropdown>
+                                                <button id="allow-button" type="button" class="btn btn-primary dropdown-toggle" style="text-transform:capitalize" dropdownToggle>
+                                                    {{usepath}} <span class="caret"></span>
+                                                </button>
+                                                <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="single-button">
+                                                    <li role="menuitem"><a class="dropdown-item" style="text-transform:capitalize" href="#" (click)="changeMapStatus($event, 'usePath', true)">Yes</a></li>
+                                                    <li role="menuitem"><a class="dropdown-item" style="text-transform:capitalize" href="#" (click)="changeMapStatus($event, 'usePath', false)">No</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Secutity</label>
+                                        <div class="form-control-static">
+                                            <div class="btn-group" dropdown>
+                                                <button id="security-button" type="button" class="btn btn-primary dropdown-toggle" style="text-transform:capitalize" dropdownToggle>
+                                                    {{security}} <span class="caret"></span>
+                                                </button>
+                                                <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="single-button">
+                                                    <li role="menuitem"><a class="dropdown-item" style="text-transform:capitalize" href="#" (click)="changeMapStatus($event, 'security', 'private')">private</a></li>
+                                                    <li role="menuitem"><a class="dropdown-item" style="text-transform:capitalize" href="#" (click)="changeMapStatus($event, 'security', 'password')">password</a></li>
+                                                    <li role="menuitem"><a class="dropdown-item" style="text-transform:capitalize" href="#" (click)="changeMapStatus($event, 'security', 'public')">public</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" [ngClass]="{'has-error':!mapForm.controls['password'].valid}">
+                                        <label>Password</label>
+                                        <input class="form-control" placeholder="Enter password" [formControl]="mapForm.controls['password']" [ngModel]="map?.password">
+                                        <div *ngIf="mapForm.controls['password'].hasError('required')" class="alert alert-danger">
+                                            When security is 'Password', you must make password.
+                                        </div>
+                                        <div *ngIf="mapForm.controls['password'].hasError('pattern')" class="alert alert-danger">
+                                            Password allows only a~z, A~Z, 0~9, !, @, #, $, %, ^, &amp;, *, (, ).
+                                        </div>
+                                        <div *ngIf="mapForm.controls['password'].hasError('minLength')" class="alert alert-danger">
+                                            Password must be 8 characters at least.
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-success" [disabled]="!mapForm.valid">Save</button>
+                                        <button type="button" class="btn btn-danger" (click)="askDelete($event)">Delete</button>
+                                        <a class="btn btn-primary btn-sm float-btn" [routerLink]="['/maker/info-edit', map?._id]"><i class="fa fa-info-circle" aria-hidden="true"></i> Info Editor</a>
+                                        <a class="btn btn-primary btn-sm float-btn margin-right-btn" [routerLink]="['/maker/desk-edit', map?._id]"><i class="fa fa-street-view" aria-hidden="true"></i> Desk Editor</a>
+                                        <a class="btn btn-primary btn-sm float-btn margin-right-btn" [routerLink]="['/maker/map-edit', map?._id]"><i class="fa fa-map" aria-hidden="true"></i> Map Editor</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

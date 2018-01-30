@@ -1,0 +1,160 @@
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+    <div class="container topnav">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand topnav" href="#" (click)="exit($event, '/')">Easy Inside</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" (click)="exit($event, '/spaces')">Search</a>
+                </li>
+                <li>
+                    <a href="#" (click)="exit($event, '/document')">Document</a>
+                </li>
+                <li>
+                    <a href="#" (click)="exit($event, '/contact')">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<div id="wrapper">
+
+    <div style="position:fixed;right:10px;top:60px;z-index:1001;">
+        <alert type="warning" dismissible="true" *ngIf="graphicCardNeeded" (onClose)="onCloseGraphicCardAlert($event)">
+            <strong>Warning!</strong> Your graphics card does not seem to support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation" style="color:#000">WebGL</a>.<br />
+            Find out how to get it <a href="http://get.webgl.org/" style="color:#000">here</a>.
+        </alert>
+        <alert type="warning" dismissible="true" *ngIf="browserNeeded" (onClose)="onCloseBrowserAlert($event)">
+            <strong>Warning!</strong> Your browser does not seem to support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation" style="color:#000">WebGL</a>.<br />
+            Find out how to get it <a href="http://get.webgl.org/" style="color:#000">here</a>.
+        </alert>
+        <alert type="info" dismissible="true" *ngIf="routeCalculating">
+            <strong>Finding...</strong> Please wait for a while. Now server is finding route.
+        </alert>
+        <alert type="info" dismissible="true" *ngIf="navigationPreparing">
+            <strong>Loading Robots...</strong> If you want to call a robot, please wait.
+        </alert>
+        <alert type="info" dismissible="true" *ngIf="robotStart">
+            <strong>Calling Robot...</strong> Robot {{selectedRobotName}} starts now.
+        </alert>
+    </div>
+
+    <div id="page-wrapper" class="webgl-wrapper" (mousemove)="onDocumentMouseMove($event)" (mouseup)="onDocumentMouseUp($event)">
+
+    </div>
+
+</div>
+
+<div class="modal fade" bsModal #loadingModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Loading Map...</h4>
+      </div>
+      <div class="modal-body">
+        <p>Please wait for a while.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #loadingDeskModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Loading Desks...</h4>
+      </div>
+      <div class="modal-body">
+        <p>Please wait for a while.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="floornav">
+    <div class="row navbox">
+        <div class="col-lg-3 col-md-3">
+            <div class="btn-group" dropdown *ngIf="multiMaps" [dropup]="true">
+                <button id="map-move-btn" type="button" class="btn btn-primary dropdown-toggle" style="text-transform:capitalize" dropdownToggle>
+                    {{map.name}} <span class="caret"></span>
+                </button>
+                <ul *dropdownMenu role="menu" class="dropdown-menu">
+                    <li *ngFor="let m of space.maps;" role="menuitem"><a class="dropdown-item" style="text-transform:capitalize" href="#" (click)="changeMap($event, m._id)">{{m.name}}</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-5 col-md-5">
+            <select id="search-info" class="form-control select2-single" style="width:100%;">
+                <option *ngFor="let i of infos;" value="{{i.type}},{{i._id}}">{{i.name}}</option>
+            </select>
+        </div>
+        <div class="col-lg-2 col-md-2">
+            <div class="btn-group" role="group">
+                <label class="btn btn-primary" (click)="cameraAction.move('rotateleft')"><i class="fa fa-reply" aria-hidden="true"></i></label>
+                <label class="btn btn-primary" (click)="cameraAction.move('rotateright')"><i class="fa fa-mail-forward" aria-hidden="true"></i></label>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2">
+            <div class="btn-group" role="group">
+                <label class="btn btn-primary" (click)="cameraAction.move('zoomin')"><i class="glyphicon glyphicon-zoom-in" aria-hidden="true"></i></label>
+                <label class="btn btn-primary" (click)="cameraAction.backToOriginPoint()"><i class="glyphicon glyphicon-zoom-out" aria-hidden="true"></i></label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="info-detail" *ngIf="infoShow">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">Information <a class="close" role="button" (click)="closeDetailPanel($event)">&times;</a></div>
+                <div class="panel-body thumbnail">
+                    <img *ngIf="infoImgShow" src="https://s3.eu-central-1.amazonaws.com/easyinside/pics/{{selectedInfo.picFileName}}">
+                    <div class="caption">
+                        <h3><i class="{{selectedInfoType}}" aria-hidden="true"></i> {{selectedInfo.name}}</h3>
+                        <p>{{selectedInfo.description}}</p>
+                        <p>{{selectedInfo.contact}}</p>
+                        <p>
+                            <a class="btn btn-primary" role="button" (click)="sendAnyRobot($event)">Come Here, Robot</a>
+                            <a class="btn-group" dropdown>
+                                <button type="button" class="btn btn-warning">Call a Specified robot</button>
+                                <button type="button" dropdownToggle class="btn btn-warning dropdown-toggle dropdown-toggle-split">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Split button!</span>
+                                </button>
+                                <ul *dropdownMenu class="dropdown-menu" role="menu">
+                                    <li *ngFor="let r of robots;" role="menuitem"><a class="dropdown-item" (click)="sendRobot($event, r._id)">{{ r.name }}</a></li>
+                                </ul>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="info-location">
+    <div class="row locbox">
+        <div class="col-lg-12">
+            <p>
+                <i class="fa fa-th" aria-hidden="true"></i> {{arrayCoordinate}}
+                <button class="btn btn-default btn-xs" (click)="eraseRoute()" title="erase routes"><i class="fa fa-eraser" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-default btn-xs" [(ngModel)]="pathOn" btnCheckbox btnCheckboxTrue="On" btnCheckboxFalse="Off" (click)="togglePath($event)" title="toggle path for robots"><i class="fa fa-map" aria-hidden="true"></i></button>
+            </p>
+        </div>
+    </div>
+</div>

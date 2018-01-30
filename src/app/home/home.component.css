@@ -1,0 +1,10 @@
+.notice-area {
+    position: fixed;
+    left: 10px;
+    top: 60px;
+    z-index: 1001;
+}
+
+.alert {
+    font-weight: 400;
+}

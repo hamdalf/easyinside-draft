@@ -1,0 +1,59 @@
+<div id="wrapper">
+
+    <app-nav-private [status]="status"></app-nav-private>
+
+    <div style="position:fixed;right:10px;top:10px;z-index:1001;">
+        <alert type="warning" dismissible="true" *ngIf="graphicCardNeeded" (onClose)="onCloseGraphicCardAlert($event)">
+            <strong>Warning!</strong> Your graphics card does not seem to support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation" style="color:#000">WebGL</a>.<br />
+            Find out how to get it <a href="http://get.webgl.org/" style="color:#000">here</a>.
+        </alert>
+        <alert type="warning" dismissible="true" *ngIf="browserNeeded" (onClose)="onCloseBrowserAlert($event)">
+            <strong>Warning!</strong> Your browser does not seem to support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation" style="color:#000">WebGL</a>.<br />
+            Find out how to get it <a href="http://get.webgl.org/" style="color:#000">here</a>.
+        </alert>
+    </div>
+
+    <div id="page-wrapper" class="webgl-wrapper">
+
+    </div>
+
+</div>
+
+<div class="modal fade" bsModal #savingModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Saving...</h4>
+      </div>
+      <div class="modal-body">
+        <p>Optimizing is finished. Saving optimized result...</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #optimizationModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Optimizing...</h4>
+      </div>
+      <div class="modal-body">
+        <p>It takes long time. Please wait...</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #loadingModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Loading Data...</h4>
+      </div>
+      <div class="modal-body">
+        <p>Please wait for a while.</p>
+      </div>
+    </div>
+  </div>
+</div>

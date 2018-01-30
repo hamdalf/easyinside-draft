@@ -1,0 +1,105 @@
+<div id="wrapper">
+
+    <app-nav-private [status]="status"></app-nav-private>
+
+    <div style="position:fixed;right:10px;top:10px;z-index:1001;">
+        <alert type="success" dismissible="true" *ngIf="editComplete">
+            <strong>Data Updated!</strong> You successfully change user's data.
+        </alert>
+    </div>
+
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">User Details</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Basic Profile<a class="btn btn-default btn-sm" style="float:right;margin-top:-5px;" href="javascript:history.back();">Back To List</a>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <form role="form">
+                                    <div class="form-group">
+                                        <label>Account Provider</label>
+                                        <p class="form-control-static">{{account?.provider}}</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>OAuth ID</label>
+                                        <p class="form-control-static">{{account?.oauthID}}</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>User Name</label>
+                                        <p class="form-control-static">{{account?.name}}</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Join Date</label>
+                                        <p class="form-control-static">{{account?.created | convertTimezone:[timeZone, timeFormat]}} (CET)</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Account Type</label>
+                                        <div class="form-control-static">
+                                            <div class="btn-group" dropdown>
+                                                <button id="single-button1" type="button" class="btn btn-primary dropdown-toggle" dropdownToggle>
+                                                    {{account?.grade}} <span class="caret"></span>
+                                                </button>
+                                                <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="single-button">
+                                                    <li role="menuitem"><a class="dropdown-item" href="#" (click)="changeUserStauts($event, 'grade', 'silent')">Silent</a></li>
+                                                    <li role="menuitem"><a class="dropdown-item" href="#" (click)="changeUserStauts($event, 'grade', 'rustling')">Rustling</a></li>
+                                                    <li role="menuitem"><a class="dropdown-item" href="#" (click)="changeUserStauts($event, 'grade', 'stomping')">Stomping</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>User Group</label>
+                                        <div class="form-control-static">
+                                            <div class="btn-group" dropdown>
+                                                <button id="single-button2" type="button" class="btn btn-primary dropdown-toggle" dropdownToggle>
+                                                    {{account?.userGroup}} <span class="caret"></span>
+                                                </button>
+                                                <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="single-button">
+                                                    <li role="menuitem"><a class="dropdown-item" href="#" (click)="changeUserStauts($event, 'usergroup', 'administrators')">Administrators</a></li>
+                                                    <li role="menuitem"><a class="dropdown-item" href="#" (click)="changeUserStauts($event, 'usergroup', 'users')">Users</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Actions</label>
+                                        <p class="form-control-static">
+                                            <button type="button" class="btn btn-danger" (click)="deleteModal.show()">Delete This Account</button>
+                                        </p>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" bsModal #deleteModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Alert</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="deleteModal.hide()">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            This account will be deleted permanently.
+            Are you sure?
+            <button type="button" class="btn btn-danger btn-block" style="margin-top:10px;" (click)="deleteAccount($event)">Yes, Delete This Account</button>
+        </div>
+        </div>
+    </div>
+</div>

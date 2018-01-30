@@ -1,0 +1,54 @@
+<div id="wrapper">
+
+    <app-nav-private [status]="status"></app-nav-private>
+
+    <div style="position:fixed;right:10px;top:10px;z-index:1001;">
+        <alert type="warning" dismissible="true" *ngIf="graphicCardNeeded" (onClose)="onCloseGraphicCardAlert($event)">
+            <strong>Warning!</strong> Your graphics card does not seem to support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation" style="color:#000">WebGL</a>.<br />
+            Find out how to get it <a href="http://get.webgl.org/" style="color:#000">here</a>.
+        </alert>
+        <alert type="warning" dismissible="true" *ngIf="browserNeeded" (onClose)="onCloseBrowserAlert($event)">
+            <strong>Warning!</strong> Your browser does not seem to support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation" style="color:#000">WebGL</a>.<br />
+            Find out how to get it <a href="http://get.webgl.org/" style="color:#000">here</a>.
+        </alert>
+        <alert type="warning" dismissible="true" *ngIf="saveProcessStarted">
+            <strong>Warning!</strong> Please wait for a while. Do not close this window.
+        </alert>
+        <alert type="success" dismissible="true" *ngIf="saveFinished">
+            <strong>Map Updated!</strong> You successfully change map data.
+        </alert>
+    </div>
+
+    <div id="page-wrapper" class="webgl-wrapper" (mousemove)="onDocumentMouseMove($event)">
+
+    </div>
+
+</div>
+
+<div class="modal fade" bsModal #loadingModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Loading...</h4>
+      </div>
+      <div class="modal-body">
+        <p>Please wait for a while.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" bsModal #saveAskModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Something Is Not Saved</h4>
+      </div>
+      <div class="modal-body">
+        <p>There is something which is not saved after last save.</p>
+        <a class="btn btn-success" (click)="saveMap(true)">Save &amp; Exit</a>
+        <a class="btn btn-danger" [routerLink]="['/maker/map-detail', map?._id]">Don't Worry, Just Exit</a>
+      </div>
+    </div>
+  </div>
+</div>

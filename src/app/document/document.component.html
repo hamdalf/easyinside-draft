@@ -1,0 +1,62 @@
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+    <div class="container topnav">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand topnav" [routerLink]="['/']">Easy Inside</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a [routerLink]="['/spaces']">Search</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/document']">Document</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/contact']">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<div id="wrapper" class="container toggled">
+  <div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li>
+        <a href="/document#GettingStarted">Getting started</a>
+      </li>
+      <li>
+        <a href="#">hohoho</a>
+      </li>
+      <li>
+        <a href="#">hahaha</a>
+      </li>
+      <li>
+        <a href="#">hihihi</a>
+      </li>
+    </ul>
+  </div>
+  <div id="page-content-wrapper">
+    <button class="btn btn-link btn-toggle"></button>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <h1>Getting started</h1>
+          <h2>Create account</h2>
+          <p>Easy Inside needs an account. You just use one of your accounts which you created aready in Google, Facebook, Twitter, Github, Instagram and Pinterest.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

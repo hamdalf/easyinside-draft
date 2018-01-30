@@ -1,0 +1,63 @@
+#wrapper {
+    padding-left: 0;
+    margin-top: 66px;
+}
+
+#lamp {
+    width: 100vw;
+    height: 100vh;
+}
+
+.listeningPanel {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 2000;
+    margin: 0;
+
+    button {
+        position: fixed;
+        bottom: 10px;
+    }
+
+    &.closed {
+        display: none;
+    }
+
+    &.black {
+        background-color: rgba(0, 0, 0, 1);
+
+        h5, h4 {
+            color: white;
+        }
+    }
+    
+    &.white {
+        background-color: rgba(255, 255, 255, 1);
+
+        h5, h4 {
+            color: black;
+        }
+    }
+    
+    &.red {
+        // actually gray
+        background-color: rgba(128, 128, 128, 1);
+
+        h5, h4 {
+            color: black;
+        }
+    }
+
+    h5 {
+        position: fixed;
+        bottom: 50px;
+    }
+
+    h4 {
+        position: fixed;
+        bottom: 80px;
+    }
+}

@@ -1,0 +1,721 @@
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" (click)="isCollapsed = !isCollapsed">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#" (click)="goHome($event)">Easy Inside</a>
+    </div>
+    <!-- /.navbar-header -->
+
+    <!-- .navbar-maker -->
+    <ul class="nav navbar-top-links navbar-right navbar-maker">
+        <li class="dropdown" dropdown>
+            <a class="dropdown-toggle" data-toggle="dropdown" dropdownToggle>
+                <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-user" *dropdownMenu>
+                <li><a [routerLink]="['/maker/account']"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                </li>
+                <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                </li>
+                <li *ngIf="showAdminMenu">
+                    <a [routerLink]="['/admin/userlist']"><i class="fa fa-wrench fa-fw"></i> Admin Dashboard</a>
+                </li>
+                <li class="divider"></li>
+                <li><a href="/auth/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                </li>
+            </ul>
+            <!-- /.dropdown-user -->
+        </li>
+        <!-- /.dropdown -->
+    </ul>
+    <!-- /.navbar-maker -->
+
+    <!-- .navbar-admin -->
+    <ul class="nav navbar-top-links navbar-right navbar-admin">
+        <li class="dropdown" dropdown>
+            <a class="dropdown-toggle" data-toggle="dropdown" alt="File" dropdownToggle>
+                <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-messages" *dropdownMenu>
+                <li>
+                    <a href="#">
+                        <div>
+                            <strong>John Smith</strong>
+                            <span class="pull-right text-muted">
+                                <em>Yesterday</em>
+                            </span>
+                        </div>
+                        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <strong>John Smith</strong>
+                            <span class="pull-right text-muted">
+                                <em>Yesterday</em>
+                            </span>
+                        </div>
+                        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <strong>John Smith</strong>
+                            <span class="pull-right text-muted">
+                                <em>Yesterday</em>
+                            </span>
+                        </div>
+                        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a class="text-center" href="#">
+                        <strong>Read All Messages</strong>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </li>
+            </ul>
+            <!-- /.dropdown-messages -->
+        </li>
+        <!-- /.dropdown -->
+        <li class="dropdown" dropdown>
+            <a class="dropdown-toggle" data-toggle="dropdown" dropdownToggle>
+                <i class="fa fa-tasks fa-fw"></i> <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-tasks" *dropdownMenu>
+                <li>
+                    <a href="#">
+                        <div>
+                            <p>
+                                <strong>Task 1</strong>
+                                <span class="pull-right text-muted">40% Complete</span>
+                            </p>
+                            <div class="progress progress-striped active">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                    <span class="sr-only">40% Complete (success)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <p>
+                                <strong>Task 2</strong>
+                                <span class="pull-right text-muted">20% Complete</span>
+                            </p>
+                            <div class="progress progress-striped active">
+                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                    <span class="sr-only">20% Complete</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <p>
+                                <strong>Task 3</strong>
+                                <span class="pull-right text-muted">60% Complete</span>
+                            </p>
+                            <div class="progress progress-striped active">
+                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+                                    <span class="sr-only">60% Complete (warning)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <p>
+                                <strong>Task 4</strong>
+                                <span class="pull-right text-muted">80% Complete</span>
+                            </p>
+                            <div class="progress progress-striped active">
+                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                                    <span class="sr-only">80% Complete (danger)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a class="text-center" href="#">
+                        <strong>See All Tasks</strong>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </li>
+            </ul>
+            <!-- /.dropdown-tasks -->
+        </li>
+        <!-- /.dropdown -->
+        <li class="dropdown" dropdown>
+            <a class="dropdown-toggle" data-toggle="dropdown" dropdownToggle>
+                <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-alerts" *dropdownMenu>
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-comment fa-fw"></i> New Comment
+                            <span class="pull-right text-muted small">4 minutes ago</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                            <span class="pull-right text-muted small">12 minutes ago</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-envelope fa-fw"></i> Message Sent
+                            <span class="pull-right text-muted small">4 minutes ago</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-tasks fa-fw"></i> New Task
+                            <span class="pull-right text-muted small">4 minutes ago</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="#">
+                        <div>
+                            <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                            <span class="pull-right text-muted small">4 minutes ago</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a class="text-center" href="#">
+                        <strong>See All Alerts</strong>
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </li>
+            </ul>
+            <!-- /.dropdown-alerts -->
+        </li>
+        <!-- /.dropdown -->
+        <li class="dropdown" dropdown>
+            <a class="dropdown-toggle" data-toggle="dropdown" dropdownToggle>
+                <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-user" *dropdownMenu>
+                <li><a [routerLink]="['/maker/account']"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                </li>
+                <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                </li>
+                <li class="divider"></li>
+                <li><a href="/auth/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                </li>
+            </ul>
+            <!-- /.dropdown-user -->
+        </li>
+        <!-- /.dropdown -->
+    </ul>
+    <!-- /.navbar-admin -->
+
+    <!-- .navbar-mapeditor -->
+    <ul class="nav navbar-top-links navbar-right navbar-mapeditor">
+        <li class="dropdown" dropdown>
+            <a class="dropdown-toggle" data-toggle="dropdown" dropdownToggle>
+                <i class="fa fa-save fa-fw"></i> File <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-file" *dropdownMenu>
+                <li><a href="#" (click)="saveMap($event)">Save</a></li>
+                <li class="divider"></li>
+                <li><a href="#" (click)="saveMapAndExit($event)">Save &amp; Exit</a></li>
+                <li><a href="#" (click)="askExit($event)">Exit</a></li>
+            </ul>
+            <!-- /.dropdown-messages -->
+        </li>
+        <!-- /.dropdown -->
+        <li class="dropdown" dropdown>
+            <a class="dropdown-toggle" data-toggle="dropdown" dropdownToggle>
+                <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-user" *dropdownMenu>
+                <li><a [routerLink]="['/maker/account']"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                </li>
+                <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                </li>
+                <li class="divider"></li>
+                <li><a href="/auth/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                </li>
+            </ul>
+            <!-- /.dropdown-user -->
+        </li>
+        <!-- /.dropdown -->
+    </ul>
+    <!-- /.navbar-mapeditor -->
+
+    <!-- .navbar-mapoptimizer -->
+    <ul class="nav navbar-top-links navbar-right navbar-mapoptimizer">
+        <li class="dropdown" dropdown>
+            <a class="dropdown-toggle" data-toggle="dropdown" dropdownToggle>
+                <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-user" *dropdownMenu>
+                <li><a [routerLink]="['/maker/account']"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                </li>
+                <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                </li>
+                <li class="divider"></li>
+                <li><a href="/auth/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                </li>
+            </ul>
+            <!-- /.dropdown-user -->
+        </li>
+        <!-- /.dropdown -->
+    </ul>
+    <!-- /.navbar-mapoptimizer -->
+
+    <!-- .navbar-deskeditor -->
+    <ul class="nav navbar-top-links navbar-right navbar-deskeditor">
+        <li class="dropdown" dropdown>
+            <a class="dropdown-toggle" data-toggle="dropdown" dropdownToggle>
+                <i class="fa fa-save fa-fw"></i> File <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-file" *dropdownMenu>
+                <li><a href="#" (click)="saveDeskMap($event)">Save</a></li>
+                <li class="divider"></li>
+                <li><a href="#" (click)="saveDeskAndExit($event)">Save &amp; Exit</a></li>
+                <li><a href="#" (click)="askDeskExit($event)">Exit</a></li>
+            </ul>
+            <!-- /.dropdown-messages -->
+        </li>
+        <!-- /.dropdown -->
+        <li class="dropdown" dropdown>
+            <a class="dropdown-toggle" data-toggle="dropdown" dropdownToggle>
+                <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-user" *dropdownMenu>
+                <li><a [routerLink]="['/maker/account']"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                </li>
+                <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                </li>
+                <li class="divider"></li>
+                <li><a href="/auth/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                </li>
+            </ul>
+            <!-- /.dropdown-user -->
+        </li>
+        <!-- /.dropdown -->
+    </ul>
+    <!-- /.navbar-deskeditor -->
+
+    <!-- .navbar-infoeditor -->
+    <ul class="nav navbar-top-links navbar-right navbar-infoeditor">
+        <li class="dropdown" dropdown>
+            <a class="dropdown-toggle" data-toggle="dropdown" dropdownToggle>
+                <i class="fa fa-save fa-fw"></i> File <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-file" *dropdownMenu>
+                <li><a href="#" (click)="saveInfo($event)">Save</a></li>
+                <li class="divider"></li>
+                <li><a href="#" (click)="saveInfoAndExit($event)">Save &amp; Exit</a></li>
+                <li><a href="#" (click)="askInfoExit($event)">Exit</a></li>
+            </ul>
+            <!-- /.dropdown-messages -->
+        </li>
+        <!-- /.dropdown -->
+        <li class="dropdown" dropdown>
+            <a class="dropdown-toggle" data-toggle="dropdown" dropdownToggle>
+                <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-user" *dropdownMenu>
+                <li><a [routerLink]="['/maker/account']"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                </li>
+                <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                </li>
+                <li class="divider"></li>
+                <li><a href="/auth/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                </li>
+            </ul>
+            <!-- /.dropdown-user -->
+        </li>
+        <!-- /.dropdown -->
+    </ul>
+    <!-- /.navbar-infoeditor -->
+    <!-- /.navbar-top-links -->
+
+    <div class="navbar-default sidebar" role="navigation">
+        <div class="sidebar-nav navbar-collapse" (collapsed)="collapsed($event)" (expanded)="expanded($event)" [collapse]="isCollapsed">
+            <!-- /.nav-maker -->
+            <ul class="nav nav-maker" id="side-menu">
+                <!--<li class="sidebar-search">
+                    <div class="input-group custom-search-form">
+                        <input type="text" class="form-control" placeholder="Search...">
+                        <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                    </div>
+                </li>-->
+                <li>
+                    <a [routerLink]="['/maker/dashboard']"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-user fa-fw"></i> Account<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a [routerLink]="['/maker/account']">User Profile</a>
+                        </li>
+                        <li>
+                            <a [routerLink]="['/maker/acount-history']">Account History</a>
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+                <li>
+                    <a [routerLink]="['/maker/spaces']"><i class="fa fa-building fa-fw"></i> Space & Map</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/maker/textures']"><i class="fa fa-paint-brush fa-fw"></i> Texture</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/maker/geometries']"><i class="fa fa-cube fa-fw"></i> Geometrie</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/maker/dings']"><i class="fa fa-cubes fa-fw"></i> Ding</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/maker/robots']"><i class="fa fa-blind fa-fw"></i> Robot</a>
+                </li>
+            </ul>
+
+            <!-- /.nav-mapeditor -->
+            <ul class="nav nav-mapeditor" id="side-menu">
+                <li>
+                    <div class="panel-heading" style="background-color:#23527c;color:#fff;">
+                        Grid
+                    </div>
+                </li>
+                <li>
+                    <div class="panel-heading">
+                        Grid Layer: 
+                        <div class="btn-group">
+                            <label class="btn btn-default btn-xs" [(ngModel)]="gridLayer" btnRadio="0" (click)="moveGrid($event)" uncheckable>0</label>
+                            <label class="btn btn-default btn-xs" [(ngModel)]="gridLayer" btnRadio="1" (click)="moveGrid($event)" uncheckable>1</label>
+                            <label class="btn btn-default btn-xs" [(ngModel)]="gridLayer" btnRadio="2" (click)="moveGrid($event)" uncheckable>2</label>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="panel-heading">
+                        Grid BG: {{bgName}}
+                        <div class="btn-group">
+                            <label class="btn btn-default btn-xs" [(ngModel)]="gridOn" btnRadio="On" (click)="toggleGrid($event)" uncheckable>On</label>
+                            <label class="btn btn-default btn-xs" [(ngModel)]="gridOn" btnRadio="Off" (click)="toggleGrid($event)" uncheckable>Off</label>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="panel-heading">
+                        <input type="file" style="width:75%;display:inline;" ng2FileSelect [uploader]="uploader" />
+                        <button type="button" class="btn btn-default btn-xs" (click)="uploader.uploadAll()" [disabled]="uploaderAvailable()">upload</button>
+                    </div>
+                </li>
+                <li>
+                    <div class="panel-heading" style="background-color:#23527c;color:#fff;">
+                        Select a Ding
+                    </div>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-cubes fa-fw"></i> Floors<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li *ngFor="let f of floors;">
+                            <a href="#" (click)="setVoxel($event, f._id)"><i class="fa fa-cube fa-fw" [ngStyle]="{'color': f.texture.color | arithmeticRGBtoHEX}"></i> {{f.name}}</a>
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+                <li>
+                    <div class="panel-heading">
+                        <button class="btn btn-primary btn-xs" (click)="fillFloor($event)">Fill Floor with Selected Ding</button>
+                    </div>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-cubes fa-fw"></i> Walls<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li *ngFor="let w of walls;">
+                            <a href="#" (click)="setVoxel($event, w._id)"><i class="fa fa-cube fa-fw" [ngStyle]="{'color': w.texture.color | arithmeticRGBtoHEX}"></i> {{w.name}}</a>
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-cubes fa-fw"></i> Path<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li *ngFor="let p of paths;">
+                            <a href="#" (click)="setVoxel($event, p._id)"><i class="fa fa-cube fa-fw" [ngStyle]="{'color': p.texture.color | arithmeticRGBtoHEX}"></i> {{p.name}}</a>
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+                <li>
+                    <div class="panel-heading" style="background-color:#23527c;color:#fff;">
+                        Key Maps
+                    </div>
+                </li>
+                <li>
+                    <div class="panel-heading">
+                        <button class="btn btn-default btn-xs">Ctrl</button> Put a Ding
+                    </div>
+                </li>
+                <li>
+                    <div class="panel-heading">
+                        <button class="btn btn-default btn-xs">Alt</button> Delete a Ding
+                    </div>
+                </li>
+                <li>
+                    <div class="panel-heading">
+                        <button class="btn btn-default btn-xs"><i class="fa fa-arrow-up"></i></button> Zoom In
+                    </div>
+                </li>
+                <li>
+                    <div class="panel-heading">
+                        <button class="btn btn-default btn-xs"><i class="fa fa-arrow-down"></i></button> Zoom Out
+                    </div>
+                </li>
+            </ul>
+
+            <!-- /.nav-mapoptimizer -->
+            <ul class="nav nav-mapoptimizer" id="side-menu">
+                <li></li>
+            </ul>
+
+            <!-- /.nav-deskeditor -->
+            <ul class="nav nav-deskeditor" id="side-menu">
+                <li>
+                    <div class="panel-heading" style="background-color:#23527c;color:#fff;">
+                        Grid & Path
+                    </div>
+                </li>
+                <li>
+                    <div class="panel-heading">
+                        Grid Layer: 
+                        <div class="btn-group">
+                            <label class="btn btn-default btn-xs" [(ngModel)]="gridLayer" btnRadio="0" (click)="moveGrid($event)" uncheckable>0</label>
+                            <label class="btn btn-default btn-xs" [(ngModel)]="gridLayer" btnRadio="1" (click)="moveGrid($event)" uncheckable>1</label>
+                            <label class="btn btn-default btn-xs" [(ngModel)]="gridLayer" btnRadio="2" (click)="moveGrid($event)" uncheckable>2</label>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="panel-heading">
+                        Grid BG: {{bgName}}
+                        <div class="btn-group">
+                            <label class="btn btn-default btn-xs" [(ngModel)]="gridOn" btnRadio="On" (click)="toggleGrid($event)" uncheckable>On</label>
+                            <label class="btn btn-default btn-xs" [(ngModel)]="gridOn" btnRadio="Off" (click)="toggleGrid($event)" uncheckable>Off</label>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="panel-heading">
+                        Path for Robot:
+                        <div class="btn-group">
+                            <label class="btn btn-default btn-xs" [(ngModel)]="pathOn" btnRadio="On" (click)="togglePath($event)" uncheckable>On</label>
+                            <label class="btn btn-default btn-xs" [(ngModel)]="pathOn" btnRadio="Off" (click)="togglePath($event)" uncheckable>Off</label>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="panel-heading">
+                        <input type="file" style="width:75%;display:inline;" ng2FileSelect [uploader]="uploader" />
+                        <button type="button" class="btn btn-default btn-xs" (click)="uploader.uploadAll()" [disabled]="uploaderAvailable()">upload</button>
+                    </div>
+                </li>
+                <li>
+                    <div class="panel-heading" style="background-color:#23527c;color:#fff;">
+                        Select a Ding
+                    </div>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-cubes fa-fw"></i> Desks<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li *ngFor="let d of desks;">
+                            <a href="#" (click)="setVoxel($event, d._id)"><i class="fa fa-cube fa-fw" [ngStyle]="{'color': d.texture.color | arithmeticRGBtoHEX}"></i> {{d.name}}</a>
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-cubes fa-fw"></i> Places<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li *ngFor="let p of places;">
+                            <a href="#" (click)="setVoxel($event, p._id)"><i class="fa fa-cube fa-fw" [ngStyle]="{'color': p.texture.color | arithmeticRGBtoHEX}"></i> {{p.name}}</a>
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-cubes fa-fw"></i> Objects<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li *ngFor="let o of objs;">
+                            <a href="#" (click)="setVoxel($event, o._id)"><i class="fa fa-cube fa-fw" [ngStyle]="{'color': o.texture.color | arithmeticRGBtoHEX}"></i> {{o.name}}</a>
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+                <li>
+                    <div class="panel-heading" style="background-color:#23527c;color:#fff;">
+                        Key Maps
+                    </div>
+                </li>
+                <li>
+                    <div class="panel-heading">
+                        <button class="btn btn-default btn-xs">R</button> Rotate a Ding
+                    </div>
+                </li>
+                <li>
+                    <div class="panel-heading">
+                        <button class="btn btn-default btn-xs">Ctrl</button> Put a Ding
+                    </div>
+                </li>
+                <li>
+                    <div class="panel-heading">
+                        <button class="btn btn-default btn-xs">Alt</button> Delete a Ding
+                    </div>
+                </li>
+                <li>
+                    <div class="panel-heading">
+                        <button class="btn btn-default btn-xs"><i class="fa fa-arrow-up"></i></button> Zoom In
+                    </div>
+                </li>
+                <li>
+                    <div class="panel-heading">
+                        <button class="btn btn-default btn-xs"><i class="fa fa-arrow-down"></i></button> Zoom Out
+                    </div>
+                </li>
+            </ul>
+
+            <!-- /.nav-infoeditor -->
+            <ul class="nav nav-infoeditor" id="side-menu">
+                <li>
+                    <div class="panel-heading" style="background-color:#23527c;color:#fff;">
+                        Info
+                    </div>
+                </li>
+                <li>
+                    <div class="panel-heading">
+                        There are {{infoCount}} Infos
+                    </div>
+                </li>
+                <li>
+                    <div class="panel-heading">
+                        <button class="btn btn-primary btn-xs" (click)="showInfos($event)">Manage Infos</button>
+                    </div>
+                </li>
+                <li>
+                    <div class="panel-heading" style="background-color:#23527c;color:#fff;">
+                        Options
+                    </div>
+                </li>
+                <li>
+                    <div class="panel-heading">
+                        Path for Robot:
+                        <div class="btn-group">
+                            <label class="btn btn-default btn-xs" [(ngModel)]="pathOn" btnRadio="On" (click)="togglePath($event)" uncheckable>On</label>
+                            <label class="btn btn-default btn-xs" [(ngModel)]="pathOn" btnRadio="Off" (click)="togglePath($event)" uncheckable>Off</label>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <!-- /.nav-admin -->
+            <ul class="nav nav-admin" id="side-menu">
+                <li class="sidebar-search">
+                    <div class="input-group custom-search-form">
+                        <input type="text" class="form-control" placeholder="Search...">
+                        <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                    </div>
+                    <!-- /input-group -->
+                </li>
+                <li>
+                    <a [routerLink]="['/admin/dashboard']"><i class="fa fa-dashboard fa-fw"></i> Dashboard {{status}}</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/admin/userlist']"><i class="fa fa-building fa-fw"></i> User List</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="flot.html">Flot Charts</a>
+                        </li>
+                        <li>
+                            <a href="morris.html">Morris.js Charts</a>
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+                <li>
+                    <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="panels-wells.html">Panels and Wells</a>
+                        </li>
+                        <li>
+                            <a href="buttons.html">Buttons</a>
+                        </li>
+                        <li>
+                            <a href="notifications.html">Notifications</a>
+                        </li>
+                        <li>
+                            <a href="typography.html">Typography</a>
+                        </li>
+                        <li>
+                            <a href="icons.html"> Icons</a>
+                        </li>
+                        <li>
+                            <a href="grid.html">Grid</a>
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+            </ul>
+        </div>
+        <!-- /.sidebar-collapse -->
+    </div>
+    <!-- /.navbar-static-side -->
+</nav>

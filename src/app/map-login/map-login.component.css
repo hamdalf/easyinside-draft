@@ -1,0 +1,6 @@
+.intro-header {
+    color: #333;
+    background: url(/assets/bootstrap/landingpage/img/login-bg.jpg) no-repeat center center;
+    background-size: cover;
+    height: 100vh;
+}
